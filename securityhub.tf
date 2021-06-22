@@ -18,10 +18,11 @@ resource "aws_cloudwatch_event_rule" "securityhub" {
     detail-type = ["Security Hub Findings - Imported"]
     detail = {
       findings = {
-        ProductFields = {
-          "aws/securityhub/ProductName" = [
-            "GuardDuty",
-            "IAM Access Analyzer",
+        "Severity" = {
+          "Label" = [
+            "HIGH",
+            "MEDIUM",
+            "CRITICAL"
           ]
         }
       }
@@ -30,7 +31,7 @@ resource "aws_cloudwatch_event_rule" "securityhub" {
 }
 
 resource "aws_cloudwatch_event_target" "securityhub" {
-  arn = aws_sns_topic.mail.arn
+  arn = aws_sns_topic.chatbot.arn
   target_id = "securityhub"
   rule = aws_cloudwatch_event_rule.securityhub.name
 
