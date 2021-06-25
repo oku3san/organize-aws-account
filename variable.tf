@@ -14,6 +14,10 @@ variable "config_log_bucket" {
   type = string
 }
 
+variable "tfstate_bucket" {
+  type = string
+}
+
 variable "slack_workspace_id" {
   type = string
 }
