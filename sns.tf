@@ -4,9 +4,9 @@ resource "aws_sns_topic" "mail" {
 
 data "aws_iam_policy_document" "cloudwatch_events" {
   statement {
-    effect = "Allow"
+    effect    = "Allow"
     resources = [aws_sns_topic.mail.arn]
-    actions = ["sns:Publish"]
+    actions   = ["sns:Publish"]
 
     principals {
       identifiers = [
@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "cloudwatch_events" {
 }
 
 resource "aws_sns_topic_policy" "cloudwatch_events" {
-  arn = aws_sns_topic.mail.arn
+  arn    = aws_sns_topic.mail.arn
   policy = data.aws_iam_policy_document.cloudwatch_events.json
 }
 

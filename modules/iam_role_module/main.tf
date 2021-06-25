@@ -4,7 +4,7 @@ variable "policy" {}
 
 resource "aws_iam_role" "this" {
   assume_role_policy = data.aws_iam_policy_document.this.json
-  name = var.name
+  name               = var.name
 }
 
 data "aws_iam_policy_document" "this" {
@@ -12,19 +12,19 @@ data "aws_iam_policy_document" "this" {
     actions = ["sts:AssumeRole"]
     principals {
       identifiers = [var.identifier]
-      type = "Service"
+      type        = "Service"
     }
   }
 }
 
 resource "aws_iam_policy" "this" {
   policy = var.policy
-  name = var.name
+  name   = var.name
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
   policy_arn = aws_iam_policy.this.arn
-  role = aws_iam_role.this.name
+  role       = aws_iam_role.this.name
 }
 
 output "arn" {

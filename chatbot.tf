@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "cloudwatch_access" {
   statement {
-    effect = "Allow"
+    effect    = "Allow"
     resources = ["*"]
 
     actions = [
@@ -12,10 +12,10 @@ data "aws_iam_policy_document" "cloudwatch_access" {
 }
 
 module "chatbot_iam_role" {
-  source = "./modules/iam_role_module"
-  name = "chatbot"
+  source     = "./modules/iam_role_module"
+  name       = "chatbot"
   identifier = "chatbot.amazonaws.com"
-  policy = data.aws_iam_policy_document.cloudwatch_access.json
+  policy     = data.aws_iam_policy_document.cloudwatch_access.json
 }
 
 resource "aws_sns_topic" "chatbot" {
@@ -24,9 +24,9 @@ resource "aws_sns_topic" "chatbot" {
 
 data "aws_iam_policy_document" "chatbot" {
   statement {
-    effect = "Allow"
+    effect    = "Allow"
     resources = [aws_sns_topic.chatbot.arn]
-    actions = ["sns:Publish"]
+    actions   = ["sns:Publish"]
 
     principals {
       identifiers = [
@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "chatbot" {
 }
 
 resource "aws_sns_topic_policy" "chatbot" {
-  arn = aws_sns_topic.chatbot.arn
+    arn    = aws_sns_topic.chatbot.arn
   policy = data.aws_iam_policy_document.chatbot.json
 }
 
@@ -53,10 +53,10 @@ resource "aws_cloudformation_stack" "chatbot" {
         Type = "AWS::Chatbot::SlackChannelConfiguration"
         Properties = {
           ConfigurationName = "AlertNotifications"
-          SlackWorkspaceId = var.slack_workspace_id
-          SlackChannelId = var.slack_channel_id
-          IamRoleArn = module.chatbot_iam_role.arn
-          SnsTopicArns = [aws_sns_topic.chatbot.arn]
+          SlackWorkspaceId  = var.slack_workspace_id
+          SlackChannelId    = var.slack_channel_id
+          IamRoleArn        = module.chatbot_iam_role.arn
+          SnsTopicArns      = [aws_sns_topic.chatbot.arn]
         }
       }
     }
