@@ -1,5 +1,5 @@
 module "log_bucket" {
-  source = "./modules/log_bucket_module"
+  source = "./modules/s3bucket_module"
   name   = var.log_bucket
 }
 
