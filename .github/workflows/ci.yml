@@ -9,6 +9,16 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
 
+    env:
+      SLACK_INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+      TF_VAR_email: ${{ secrets.EMAIL }}
+      TF_VAR_log_bucket: ${{ secrets.LOG_BUCKET }}
+      TF_VAR_cloudtrail_log_bucket: ${{ secrets.CLOUDTRAIL_LOG_BUCKET }}
+      TF_VAR_config_log_bucket: ${{ secrets.CONFIG_LOG_BUCKET }}
+      TF_VAR_tfstate_bucket: ${{ secrets.TFSTATE_BUCKET }}
+      TF_VAR_slack_workspace_id: ${{ secrets.SLACK_WORKSPACE_ID }}
+      TF_VAR_slack_channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+
     defaults:
       run:
         shell: bash
