@@ -1,5 +1,6 @@
 resource "aws_sns_topic" "mail" {
-  name = "alert-mail"
+  name              = "alert-mail"
+  kms_master_key_id = "alias/aws/sns"
 }
 
 data "aws_iam_policy_document" "cloudwatch_events" {
