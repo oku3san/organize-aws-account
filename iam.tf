@@ -63,19 +63,6 @@ resource "aws_iam_group_membership" "terraform_admin" {
   users = [aws_iam_user.terraform.name]
 }
 
-data "aws_iam_policy_document" "terraform_role_policy" {
-  statement {
-    effect    = "Allow"
-    actions   = ["*"]
-    resources = ["*"]
-  }
-}
-
-resource "aws_iam_policy" "terraform" {
-  name   = "terraform_admin_policy"
-  policy = data.aws_iam_policy_document.terraform_role_policy.json
-}
-
 data "aws_iam_policy_document" "terraform_role_assume_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -93,7 +80,7 @@ resource "aws_iam_role" "terraform" {
 }
 
 resource "aws_iam_role_policy_attachment" "terraform" {
-  policy_arn = aws_iam_policy.terraform.arn
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
   role       = aws_iam_role.terraform.name
 }
 
