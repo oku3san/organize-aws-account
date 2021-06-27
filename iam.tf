@@ -2,7 +2,7 @@ resource "aws_iam_group" "terraform_admin" {
   name = "terraform_admin"
 }
 
-data "aws_iam_policy_document" "terraform_admin_sts_policy" {
+data "aws_iam_policy_document" "assume_role_policy" {
   statement {
     effect    = "Allow"
     actions   = ["sts:AssumeRole"]
@@ -10,9 +10,31 @@ data "aws_iam_policy_document" "terraform_admin_sts_policy" {
   }
 }
 
-resource "aws_iam_policy" "terraform_admin_sts_policy" {
-  name   = "terraform_sts_policy"
-  policy = data.aws_iam_policy_document.terraform_admin_sts_policy.json
+resource "aws_iam_policy" "assume_role_policy" {
+  name   = "assume_role_policy"
+  policy = data.aws_iam_policy_document.assume_role_policy.json
+}
+
+data "aws_iam_policy_document" "rotate_access_key_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:CreateAccessKey",
+      "iam:UpdateAccessKey",
+      "iam:DeleteAccessKey",
+      "iam:ListAccessKeys",
+      "iam:GetAccessKeyLastUsed",
+      "iam:GetUser"
+    ]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/&{aws:username}"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "rotate_access_key_policy" {
+  name   = "rotate_access_key_policy"
+  policy = data.aws_iam_policy_document.rotate_access_key_policy.json
 }
 
 resource "aws_iam_group_policy_attachment" "terraform_admin_readonly" {
@@ -20,9 +42,14 @@ resource "aws_iam_group_policy_attachment" "terraform_admin_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
-resource "aws_iam_group_policy_attachment" "terraform_admin_stg" {
+resource "aws_iam_group_policy_attachment" "terraform_admin_assume_role" {
   group      = aws_iam_group.terraform_admin.name
-  policy_arn = aws_iam_policy.terraform_admin_sts_policy.arn
+  policy_arn = aws_iam_policy.assume_role_policy.arn
+}
+
+resource "aws_iam_group_policy_attachment" "terraform_admin_rotate_access_key" {
+  group      = aws_iam_group.terraform_admin.name
+  policy_arn = aws_iam_policy.rotate_access_key_policy.arn
 }
 
 resource "aws_iam_user" "terraform" {
