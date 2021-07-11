@@ -17,11 +17,3 @@ variable "config_log_bucket" {
 variable "tfstate_bucket" {
   type = string
 }
-
-variable "slack_workspace_id" {
-  type = string
-}
-
-variable "slack_channel_id" {
-  type = string
-}

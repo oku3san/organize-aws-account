@@ -54,8 +54,8 @@ resource "aws_cloudformation_stack" "chatbot" {
         Type = "AWS::Chatbot::SlackChannelConfiguration"
         Properties = {
           ConfigurationName = "AlertNotifications"
-          SlackWorkspaceId  = var.slack_workspace_id
-          SlackChannelId    = var.slack_channel_id
+          SlackWorkspaceId  = aws_ssm_parameter.slack_workspace_id.value
+          SlackChannelId    = aws_ssm_parameter.slack_channel_id.value
           IamRoleArn        = module.chatbot_iam_role.arn
           SnsTopicArns      = [aws_sns_topic.chatbot.arn]
         }
