@@ -1,7 +1,3 @@
-variable "email" {
-  type = string
-}
-
 variable "log_bucket" {
   type = string
 }

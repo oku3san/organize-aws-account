@@ -27,5 +27,5 @@ resource "aws_sns_topic_policy" "cloudwatch_events" {
 resource "aws_sns_topic_subscription" "mail_subscription" {
   topic_arn = aws_sns_topic.mail.arn
   protocol  = "email"
-  endpoint  = var.email
+  endpoint  = aws_ssm_parameter.email.value
 }

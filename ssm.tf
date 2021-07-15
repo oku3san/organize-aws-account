@@ -15,3 +15,12 @@ resource "aws_ssm_parameter" "slack_channel_id" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "email" {
+  name  = "/email"
+  type  = "SecureString"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}

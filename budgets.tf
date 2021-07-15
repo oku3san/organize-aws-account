@@ -11,6 +11,6 @@ resource "aws_budgets_budget" "monthly_cost" {
     notification_type          = "ACTUAL"
     threshold                  = 80
     threshold_type             = "PERCENTAGE"
-    subscriber_email_addresses = [var.email]
+    subscriber_email_addresses = [aws_ssm_parameter.email.value]
   }
 }
