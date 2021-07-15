@@ -24,3 +24,12 @@ resource "aws_ssm_parameter" "email" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "domain" {
+  name  = "/domain"
+  type  = "SecureString"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
