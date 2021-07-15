@@ -7,10 +7,10 @@ resource "aws_budgets_budget" "monthly_cost" {
   time_unit         = "MONTHLY"
 
   notification {
-    comparison_operator        = "GREATER_THAN"
-    notification_type          = "ACTUAL"
-    threshold                  = 80
-    threshold_type             = "PERCENTAGE"
-    subscriber_email_addresses = [aws_ssm_parameter.email.value]
+    comparison_operator       = "GREATER_THAN"
+    notification_type         = "ACTUAL"
+    threshold                 = 80
+    threshold_type            = "PERCENTAGE"
+    subscriber_sns_topic_arns = [aws_sns_topic.mail.arn]
   }
 }
