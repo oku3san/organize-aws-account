@@ -27,7 +27,7 @@ resource "aws_ssm_parameter" "email" {
 
 resource "aws_ssm_parameter" "domain" {
   name  = "/domain"
-  type  = "SecureString"
+  type  = "String"
   value = "dummy"
   lifecycle {
     ignore_changes = [value]
