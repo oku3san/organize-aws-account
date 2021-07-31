@@ -1,6 +1,5 @@
 resource "aws_sns_topic" "mail" {
-  name              = "mail"
-  kms_master_key_id = "alias/aws/sns"
+  name = "mail"
 }
 
 data "aws_iam_policy_document" "mail" {
