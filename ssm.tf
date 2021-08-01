@@ -33,3 +33,21 @@ resource "aws_ssm_parameter" "domain" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "newrelic_account_id" {
+  name  = "/newrelic_account_id"
+  type  = "SecureString"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
+
+resource "aws_ssm_parameter" "newrelic_external_id" {
+  name  = "/newrelic_external_id"
+  type  = "SecureString"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
