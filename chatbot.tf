@@ -19,8 +19,7 @@ module "chatbot_iam_role" {
 }
 
 resource "aws_sns_topic" "chatbot" {
-  name              = "chatbot"
-  kms_master_key_id = "alias/aws/sns"
+  name = "chatbot"
 }
 
 data "aws_iam_policy_document" "chatbot" {
