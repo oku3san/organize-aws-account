@@ -93,3 +93,53 @@ resource "aws_iam_account_password_policy" "strict" {
   allow_users_to_change_password = true
   max_password_age               = 0
 }
+
+data "aws_iam_policy_document" "newrelic_role_assume_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRole"
+    ]
+    condition {
+      test     = "StringEquals"
+      values   = [aws_ssm_parameter.newrelic_external_id.value]
+      variable = "sts:ExternalId"
+    }
+    effect = "Allow"
+    principals {
+      identifiers = [aws_ssm_parameter.newrelic_account_id.value]
+      type        = "AWS"
+    }
+  }
+}
+
+resource "aws_iam_role" "newrelic" {
+  assume_role_policy = data.aws_iam_policy_document.newrelic_role_assume_policy.json
+  name               = "newrelic"
+}
+
+resource "aws_iam_role_policy_attachment" "newrelic_readonly" {
+  policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+  role       = aws_iam_role.newrelic.name
+}
+
+data "aws_iam_policy_document" "newrelic_role_policy" {
+  statement {
+    actions = [
+      "budgets:ViewBudget"
+    ]
+    effect = "Allow"
+    resources = [
+      "*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "newrelic_role_policy" {
+  name   = "newrelic_role_policy"
+  policy = data.aws_iam_policy_document.newrelic_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "newrelic_role_policy" {
+  policy_arn = aws_iam_policy.newrelic_role_policy.arn
+  role       = aws_iam_role.newrelic.name
+}
