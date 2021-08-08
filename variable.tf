@@ -13,3 +13,7 @@ variable "config_log_bucket" {
 variable "tfstate_bucket" {
   type = string
 }
+
+variable "newrelic_firehose_bucket" {
+  type = string
+}

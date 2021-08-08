@@ -51,3 +51,12 @@ resource "aws_ssm_parameter" "newrelic_external_id" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "newrelic_api" {
+  name  = "/newrelic_api"
+  type  = "SecureString"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}

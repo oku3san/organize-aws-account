@@ -13,6 +13,7 @@ env:
   TF_VAR_tfstate_bucket: ${{ secrets.TFSTATE_BUCKET }}
   TF_VAR_slack_workspace_id: ${{ secrets.SLACK_WORKSPACE_ID }}
   TF_VAR_slack_channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+  TF_VAR_newrelic_firehose_bucket: ${{ secrets.NEWRELIC_FIREHOSE_BUCKET }}
 
 jobs:
   plan:
