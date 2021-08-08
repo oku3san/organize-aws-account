@@ -1,4 +1,4 @@
-resource "aws_organizations_organization" "organizations" {
+resource "aws_organizations_organization" "organization" {
   aws_service_access_principals = [
     "cloudtrail.amazonaws.com",
     "config.amazonaws.com",
