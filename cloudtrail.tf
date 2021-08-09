@@ -68,7 +68,6 @@ data "aws_iam_policy_document" "cloudtrail_kms" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/terraform",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/terraform",
-        "arn:aws:sts::${data.aws_caller_identity.current.account_id}:federated-user/oku3san",
         "arn:aws:sts::${data.aws_caller_identity.current.account_id}:federated-user/terraform",
       ]
     }
