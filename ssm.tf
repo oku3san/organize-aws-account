@@ -60,3 +60,12 @@ resource "aws_ssm_parameter" "newrelic_api" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "newrelic_license" {
+  name  = "/NEW_RELIC_LICENSE_KEY"
+  type  = "SecureString"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
