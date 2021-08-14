@@ -16,8 +16,9 @@ resource "aws_ssoadmin_permission_set" "permission_set" {
     "AdministratorAccess",
     "ReadOnlyAccess"
   ])
-  name         = each.value
-  instance_arn = tolist(data.aws_ssoadmin_instances.ssoadmin_instances.arns)[0]
+  name             = each.value
+  instance_arn     = tolist(data.aws_ssoadmin_instances.ssoadmin_instances.arns)[0]
+  session_duration = "PT12H"
 }
 
 resource "aws_ssoadmin_managed_policy_attachment" "policy_attachment" {
