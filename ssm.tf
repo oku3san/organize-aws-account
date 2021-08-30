@@ -60,3 +60,21 @@ resource "aws_ssm_parameter" "newrelic_api" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "line_access_token" {
+  name  = "/line_access_token"
+  type  = "String"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
+
+resource "aws_ssm_parameter" "line_channel_secret" {
+  name  = "/line_channel_secret"
+  type  = "String"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
