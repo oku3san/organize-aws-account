@@ -78,3 +78,12 @@ resource "aws_ssm_parameter" "line_channel_secret" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "line_user_id" {
+  name  = "/line_user_id"
+  type  = "String"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
