@@ -87,3 +87,30 @@ resource "aws_ssm_parameter" "line_user_id" {
     ignore_changes = [value]
   }
 }
+
+resource "aws_ssm_parameter" "medicine_line_access_token" {
+  name  = "/medicine_line_access_token"
+  type  = "String"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
+
+resource "aws_ssm_parameter" "medicine_line_channel_secret" {
+  name  = "/medicine_line_channel_secret"
+  type  = "String"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
+
+resource "aws_ssm_parameter" "medicine_line_user_id" {
+  name  = "/medicine_line_user_id"
+  type  = "String"
+  value = "dummy"
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
