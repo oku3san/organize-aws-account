@@ -138,9 +138,9 @@ module "cloudwatch_metrics_stream_newrelic_iam_role" {
   policy     = data.aws_iam_policy_document.newrelic_cloudwatch_stream.json
 }
 
-resource "aws_cloudwatch_metric_stream" "newrelic" {
-  name          = "newrelic-metric-stream"
-  role_arn      = module.cloudwatch_metrics_stream_newrelic_iam_role.arn
-  firehose_arn  = aws_kinesis_firehose_delivery_stream.newrelic.id
-  output_format = "opentelemetry0.7"
-}
+#resource "aws_cloudwatch_metric_stream" "newrelic" {
+#  name          = "newrelic-metric-stream"
+#  role_arn      = module.cloudwatch_metrics_stream_newrelic_iam_role.arn
+#  firehose_arn  = aws_kinesis_firehose_delivery_stream.newrelic.id
+#  output_format = "opentelemetry0.7"
+#}
